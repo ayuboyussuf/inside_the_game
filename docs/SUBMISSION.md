@@ -1,7 +1,8 @@
 # Submission: Hunt Autopsy
 
 **Repository:** https://github.com/ayuboyussuf/inside_the_game (AGPL-3.0)
-**Demo video:** _add the YouTube/Vimeo link here_
+**Demo video:** _add the YouTube/Vimeo link here_ (file: `docs/demo/hunt_autopsy_film.mp4`)
+**Tagline:** The *why* behind every moment: live, fact-checked, and made for every fan.
 **Try it:** see *Testing instructions* below.
 
 ## Elevator pitch (≈ 150 words)
