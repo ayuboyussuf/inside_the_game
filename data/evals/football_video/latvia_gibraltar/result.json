@@ -1,0 +1,48 @@
+{
+ "clip": "latvia_gibraltar",
+ "frames_sampled": 43,
+ "source_fps": 120.0,
+ "stride": 12,
+ "duration_s": 4.2,
+ "model": "yolo11s.pt",
+ "imgsz": 1280,
+ "seconds": 122.4,
+ "players": {
+  "on_pitch_per_frame": 1.7,
+  "crowd_or_bench_per_frame": 1.1,
+  "median_height_px": 49.4
+ },
+ "ball": {
+  "frames_with_ball": 0.0,
+  "n_ball_tracks": 0,
+  "longest_ball_track_frames": 0
+ },
+ "tracking": {
+  "person_tracks": 46,
+  "id_births_per_s": 10.95,
+  "median_track_len_s": 0.2
+ },
+ "teams": {
+  "clusters": [
+   29,
+   35,
+   10
+  ],
+  "silhouette": 0.67,
+  "track_purity": 0.801
+ },
+ "scene": {
+  "cuts": 0,
+  "graphics_rows_share": 0.0,
+  "pitch_green_share": 0.404
+ },
+ "pitch": {
+  "mean_long_lines": 14.7,
+  "homography": "not available (no pitch keypoint model)"
+ },
+ "events": {
+  "generated": 0,
+  "passes": 0,
+  "turnovers": 0
+ }
+}

@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+data/cache/
+data/clips/
+data/raw/*.mp4
+data/raw/*.gt.json
+data/episodes/
+data/eval_log.txt
+.pytest_cache/
+checkpoints/
+*.pt
+# media and third-party footage are fetched by scripts, never committed
+data/raw/commons/
+data/raw/football/*.ogv
+data/raw/football/*.webm
+data/raw/football/*.mp4
+data/uploads/
+data/datasets/
+data/evals/football_video/**/*.jpg
+runs/
+*.ogv
+*.webm
+.claude/
+weights/
+*.egg-info/

@@ -1,0 +1,338 @@
+[
+ {
+  "clip": "fra_ger_open_play",
+  "frames_sampled": 120,
+  "source_fps": 30.0,
+  "stride": 3,
+  "duration_s": 11.9,
+  "model": "yolo11s.pt",
+  "imgsz": 1280,
+  "seconds": 355.8,
+  "players": {
+   "on_pitch_per_frame": 23.0,
+   "crowd_or_bench_per_frame": 6.9,
+   "median_height_px": 33.9
+  },
+  "ball": {
+   "frames_with_ball": 0.0,
+   "n_ball_tracks": 0,
+   "longest_ball_track_frames": 0
+  },
+  "tracking": {
+   "person_tracks": 98,
+   "id_births_per_s": 8.24,
+   "median_track_len_s": 1.5
+  },
+  "teams": {
+   "clusters": [
+    174,
+    49,
+    216
+   ],
+   "silhouette": 0.616,
+   "track_purity": 0.945
+  },
+  "scene": {
+   "cuts": 0,
+   "graphics_rows_share": 0.0,
+   "pitch_green_share": 0.217
+  },
+  "pitch": {
+   "mean_long_lines": 18.9,
+   "homography": "not available (no pitch keypoint model)"
+  },
+  "events": {
+   "generated": 0,
+   "passes": 0,
+   "turnovers": 0
+  }
+ },
+ {
+  "clip": "fra_ger_kroos_penalty",
+  "frames_sampled": 120,
+  "source_fps": 30.0,
+  "stride": 3,
+  "duration_s": 11.9,
+  "model": "yolo11s.pt",
+  "imgsz": 1280,
+  "seconds": 267.1,
+  "players": {
+   "on_pitch_per_frame": 13.9,
+   "crowd_or_bench_per_frame": 11.8,
+   "median_height_px": 86.1
+  },
+  "ball": {
+   "frames_with_ball": 0.975,
+   "n_ball_tracks": 7,
+   "longest_ball_track_frames": 106
+  },
+  "tracking": {
+   "person_tracks": 43,
+   "id_births_per_s": 3.61,
+   "median_track_len_s": 9.6
+  },
+  "teams": {
+   "clusters": [
+    88,
+    52,
+    56
+   ],
+   "silhouette": 0.583,
+   "track_purity": 0.912
+  },
+  "scene": {
+   "cuts": 0,
+   "graphics_rows_share": 0.0,
+   "pitch_green_share": 0.394
+  },
+  "pitch": {
+   "mean_long_lines": 25.5,
+   "homography": "not available (no pitch keypoint model)"
+  },
+  "events": {
+   "generated": 5,
+   "passes": 5,
+   "turnovers": 0
+  }
+ },
+ {
+  "clip": "keller_saves_henry_pk",
+  "frames_sampled": 90,
+  "source_fps": 30.0,
+  "stride": 3,
+  "duration_s": 8.9,
+  "model": "yolo11s.pt",
+  "imgsz": 1280,
+  "seconds": 175.4,
+  "players": {
+   "on_pitch_per_frame": 10.5,
+   "crowd_or_bench_per_frame": 0.2,
+   "median_height_px": 65.3
+  },
+  "ball": {
+   "frames_with_ball": 0.022,
+   "n_ball_tracks": 1,
+   "longest_ball_track_frames": 2
+  },
+  "tracking": {
+   "person_tracks": 72,
+   "id_births_per_s": 8.09,
+   "median_track_len_s": 0.8
+  },
+  "teams": {
+   "clusters": [
+    84,
+    225,
+    159
+   ],
+   "silhouette": 0.591,
+   "track_purity": 0.867
+  },
+  "scene": {
+   "cuts": 0,
+   "graphics_rows_share": 0.0,
+   "pitch_green_share": 0.737
+  },
+  "pitch": {
+   "mean_long_lines": 92.6,
+   "homography": "not available (no pitch keypoint model)"
+  },
+  "events": {
+   "generated": 0,
+   "passes": 0,
+   "turnovers": 0
+  }
+ },
+ {
+  "clip": "valencia_wc2022_goal",
+  "frames_sampled": 120,
+  "source_fps": 25.0,
+  "stride": 2,
+  "duration_s": 9.5,
+  "model": "yolo11s.pt",
+  "imgsz": 1280,
+  "seconds": 209.4,
+  "players": {
+   "on_pitch_per_frame": 9.7,
+   "crowd_or_bench_per_frame": 0.0,
+   "median_height_px": 42.1
+  },
+  "ball": {
+   "frames_with_ball": 0.0,
+   "n_ball_tracks": 0,
+   "longest_ball_track_frames": 0
+  },
+  "tracking": {
+   "person_tracks": 20,
+   "id_births_per_s": 2.1,
+   "median_track_len_s": 3.04
+  },
+  "teams": {
+   "clusters": [
+    27,
+    23,
+    65
+   ],
+   "silhouette": 0.621,
+   "track_purity": 0.878
+  },
+  "scene": {
+   "cuts": 0,
+   "graphics_rows_share": 0.829,
+   "pitch_green_share": 0.954
+  },
+  "pitch": {
+   "mean_long_lines": 33.0,
+   "homography": "not available (no pitch keypoint model)"
+  },
+  "events": {
+   "generated": 0,
+   "passes": 0,
+   "turnovers": 0
+  }
+ },
+ {
+  "clip": "latvia_gibraltar",
+  "frames_sampled": 43,
+  "source_fps": 120.0,
+  "stride": 12,
+  "duration_s": 4.2,
+  "model": "yolo11s.pt",
+  "imgsz": 1280,
+  "seconds": 122.4,
+  "players": {
+   "on_pitch_per_frame": 1.7,
+   "crowd_or_bench_per_frame": 1.1,
+   "median_height_px": 49.4
+  },
+  "ball": {
+   "frames_with_ball": 0.0,
+   "n_ball_tracks": 0,
+   "longest_ball_track_frames": 0
+  },
+  "tracking": {
+   "person_tracks": 46,
+   "id_births_per_s": 10.95,
+   "median_track_len_s": 0.2
+  },
+  "teams": {
+   "clusters": [
+    29,
+    35,
+    10
+   ],
+   "silhouette": 0.67,
+   "track_purity": 0.801
+  },
+  "scene": {
+   "cuts": 0,
+   "graphics_rows_share": 0.0,
+   "pitch_green_share": 0.404
+  },
+  "pitch": {
+   "mean_long_lines": 14.7,
+   "homography": "not available (no pitch keypoint model)"
+  },
+  "events": {
+   "generated": 0,
+   "passes": 0,
+   "turnovers": 0
+  }
+ },
+ {
+  "clip": "everton_oxford_highlights",
+  "frames_sampled": 120,
+  "source_fps": 50.0,
+  "stride": 5,
+  "duration_s": 11.9,
+  "model": "yolo11s.pt",
+  "imgsz": 1280,
+  "seconds": 152.2,
+  "players": {
+   "on_pitch_per_frame": 12.8,
+   "crowd_or_bench_per_frame": 1.4,
+   "median_height_px": 45.8
+  },
+  "ball": {
+   "frames_with_ball": 0.05,
+   "n_ball_tracks": 2,
+   "longest_ball_track_frames": 3
+  },
+  "tracking": {
+   "person_tracks": 135,
+   "id_births_per_s": 11.34,
+   "median_track_len_s": 0.9
+  },
+  "teams": {
+   "clusters": [
+    307,
+    59,
+    462
+   ],
+   "silhouette": 0.554,
+   "track_purity": 0.909
+  },
+  "scene": {
+   "cuts": 0,
+   "graphics_rows_share": 0.0,
+   "pitch_green_share": 0.452
+  },
+  "pitch": {
+   "mean_long_lines": 163.2,
+   "homography": "not available (no pitch keypoint model)"
+  },
+  "events": {
+   "generated": 0,
+   "passes": 0,
+   "turnovers": 0
+  }
+ },
+ {
+  "clip": "amateur_shot_topdown",
+  "frames_sampled": 120,
+  "source_fps": 29.97002997002997,
+  "stride": 3,
+  "duration_s": 11.9,
+  "model": "yolo11s.pt",
+  "imgsz": 1280,
+  "seconds": 179.1,
+  "players": {
+   "on_pitch_per_frame": 5.9,
+   "crowd_or_bench_per_frame": 0.0,
+   "median_height_px": 17.0
+  },
+  "ball": {
+   "frames_with_ball": 0.0,
+   "n_ball_tracks": 0,
+   "longest_ball_track_frames": 0
+  },
+  "tracking": {
+   "person_tracks": 36,
+   "id_births_per_s": 3.02,
+   "median_track_len_s": 1.0
+  },
+  "teams": {
+   "clusters": [
+    80,
+    136,
+    21
+   ],
+   "silhouette": 0.498,
+   "track_purity": 0.9
+  },
+  "scene": {
+   "cuts": 0,
+   "graphics_rows_share": 0.0,
+   "pitch_green_share": 0.868
+  },
+  "pitch": {
+   "mean_long_lines": 0.0,
+   "homography": "not available (no pitch keypoint model)"
+  },
+  "events": {
+   "generated": 0,
+   "passes": 0,
+   "turnovers": 0
+  }
+ }
+]

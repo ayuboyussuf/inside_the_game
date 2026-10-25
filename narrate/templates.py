@@ -1,0 +1,235 @@
+"""Deterministic, multilingual phrase banks.
+
+These are the offline narrator (and the fallback when the LLM is unavailable or fails
+the fact check). Every number they print comes from the evidence/moment dict.
+Languages: en, es, fr, pt, de. Anything else goes through the LLM translator.
+"""
+from __future__ import annotations
+
+LANGS = ("en", "es", "fr", "pt", "de")
+LANG_NAMES = {"en": "English", "es": "Español", "fr": "Français", "pt": "Português", "de": "Deutsch",
+              "ar": "العربية", "ja": "日本語", "sw": "Kiswahili", "hi": "हिन्दी"}
+
+
+class SafeDict(dict):
+    def __missing__(self, k):
+        return "{" + k + "}"
+
+
+def fill(t: str, ctx: dict) -> str:
+    return t.format_map(SafeDict(ctx))
+
+
+# ---------------------------------------------------------------- autopsy
+AUTOPSY = {
+    "en": {
+        "lead": "{outcome_cap}. The biggest factor: {f1_label_l} of {f1_display}",
+        "similar": " — {similar}.",
+        "nosimilar": ".",
+        "second": " {f2_label_cap} ({f2_display}) also pushed it toward {outcome}.",
+        "moment": " The moment that mattered: {moment}.",
+        "cf": " Counterfactual: {cf}.",
+        "casual": "{outcome_cap}! It came down to {f1_label_l} — {f1_display}.{moment_short}",
+        "moment_short": " Turning point at {t_display}.",
+    },
+    "es": {
+        "lead": "{outcome_cap}. El factor clave: {f1_label_l} de {f1_display}",
+        "similar": " — en clips similares, {similar_short}.",
+        "nosimilar": ".",
+        "second": " {f2_label_cap} ({f2_display}) también empujó hacia «{outcome}».",
+        "moment": " El momento decisivo llegó en {t_display}.",
+        "cf": "",
+        "casual": "¡{outcome_cap}! Todo se decidió por {f1_label_l}: {f1_display}.{moment_short}",
+        "moment_short": " Punto de inflexión en {t_display}.",
+    },
+    "fr": {
+        "lead": "{outcome_cap}. Facteur principal : {f1_label_l} de {f1_display}",
+        "similar": " — dans des clips similaires, {similar_short}.",
+        "nosimilar": ".",
+        "second": " {f2_label_cap} ({f2_display}) a aussi pesé vers « {outcome} ».",
+        "moment": " Le moment décisif : {t_display}.",
+        "cf": "",
+        "casual": "{outcome_cap} ! Tout s'est joué sur {f1_label_l} : {f1_display}.{moment_short}",
+        "moment_short": " Tournant à {t_display}.",
+    },
+    "pt": {
+        "lead": "{outcome_cap}. O fator principal: {f1_label_l} de {f1_display}",
+        "similar": " — em clipes semelhantes, {similar_short}.",
+        "nosimilar": ".",
+        "second": " {f2_label_cap} ({f2_display}) também pesou para «{outcome}».",
+        "moment": " O momento decisivo: {t_display}.",
+        "cf": "",
+        "casual": "{outcome_cap}! Tudo se decidiu em {f1_label_l}: {f1_display}.{moment_short}",
+        "moment_short": " Virada aos {t_display}.",
+    },
+    "de": {
+        "lead": "{outcome_cap}. Der wichtigste Faktor: {f1_label_l} von {f1_display}",
+        "similar": " — in ähnlichen Clips: {similar_short}.",
+        "nosimilar": ".",
+        "second": " {f2_label_cap} ({f2_display}) wirkte ebenfalls Richtung „{outcome}“.",
+        "moment": " Der entscheidende Moment: {t_display}.",
+        "cf": "",
+        "casual": "{outcome_cap}! Entschieden durch {f1_label_l}: {f1_display}.{moment_short}",
+        "moment_short": " Wendepunkt bei {t_display}.",
+    },
+}
+SIMILAR_SHORT = {"es": "{k} de {n}", "fr": "{k} sur {n}", "pt": "{k} de {n}", "de": "{k} von {n}", "en": "{k} of {n}"}
+OUTCOME_WORDS = {
+    "en": {"caught": "caught", "escaped": "escaped", "goal": "goal", "saved": "saved"},
+    "es": {"caught": "cazada", "escaped": "escapó", "goal": "gol", "saved": "parada"},
+    "fr": {"caught": "attrapée", "escaped": "échappée", "goal": "but", "saved": "arrêt"},
+    "pt": {"caught": "capturada", "escaped": "escapou", "goal": "golo", "saved": "defesa"},
+    "de": {"caught": "gefangen", "escaped": "entkommen", "goal": "Tor", "saved": "gehalten"},
+}
+FEATURE_WORDS = {
+    "es": {"reaction_delay": "el tiempo de reacción", "separation_at_commit": "la distancia al arrancar", "direction_changes": "los cambios de dirección",
+           "screening": "la pantalla de defensores", "group_help": "la ayuda del grupo", "approach_angle": "el ángulo", "closing_speed": "la velocidad de cierre",
+           "turn_sharpness": "la brusquedad de los giros", "fatigue": "la duración de la carrera", "attacker_top_speed": "la velocidad punta del atacante",
+           "defender_top_speed": "la velocidad punta del defensor", "speed_ratio": "la relación de velocidades"},
+    "fr": {"reaction_delay": "le temps de réaction", "separation_at_commit": "la distance au départ", "direction_changes": "les changements de direction",
+           "screening": "l'écran des défenseurs", "group_help": "l'aide du groupe", "approach_angle": "l'angle", "closing_speed": "la vitesse de rapprochement",
+           "turn_sharpness": "la vivacité des appuis", "fatigue": "la durée de la course", "attacker_top_speed": "la vitesse de pointe de l'attaquant",
+           "defender_top_speed": "la vitesse de pointe du défenseur", "speed_ratio": "le rapport de vitesses"},
+    "pt": {"reaction_delay": "o tempo de reação", "separation_at_commit": "a distância no arranque", "direction_changes": "as mudanças de direção",
+           "screening": "a cortina de defensores", "group_help": "a ajuda do grupo", "approach_angle": "o ângulo", "closing_speed": "a velocidade de aproximação",
+           "turn_sharpness": "a rapidez das fintas", "fatigue": "a duração da corrida", "attacker_top_speed": "a velocidade máxima do atacante",
+           "defender_top_speed": "a velocidade máxima do defensor", "speed_ratio": "a razão de velocidades"},
+    "de": {"reaction_delay": "die Reaktionszeit", "separation_at_commit": "der Abstand beim Antritt", "direction_changes": "die Richtungswechsel",
+           "screening": "die Sichtblockade", "group_help": "die Gruppenhilfe", "approach_angle": "der Winkel", "closing_speed": "die Annäherungsgeschwindigkeit",
+           "turn_sharpness": "die Schärfe der Haken", "fatigue": "die Sprintdauer", "attacker_top_speed": "das Spitzentempo des Angreifers",
+           "defender_top_speed": "das Spitzentempo des Verteidigers", "speed_ratio": "das Tempoverhältnis"},
+}
+
+# ---------------------------------------------------------------- live moments
+# persona: "analyst" (dense, numbers) / "casual" (short, emotional)
+LIVE = {
+    "en": {
+        "goal": {"analyst": "{clock} GOAL {team} — {player} ({xg_txt}). Win probability {wp_before} → {wp_after}. {score_str}.",
+                 "casual": "{clock} GOAL! {player} scores for {team}! {score_str}."},
+        "shot": {"analyst": "{clock} {player} shot, {outcome_txt}: {xg_txt}, {speed_txt}.",
+                 "casual": "{clock} {player} lets fly — {outcome_txt}."},
+        "big_chance_missed": {"analyst": "{clock} Big chance gone: {player}, {xg_txt}, {outcome_txt}.",
+                              "casual": "{clock} So close! {player} should have scored."},
+        "save_autopsy": {"analyst": "{clock} Why it was saved: {why}.", "casual": "{clock} What a stop! {why_short}."},
+        "goal_autopsy": {"analyst": "{clock} Why it went in: {why}.", "casual": "{clock} Why the keeper had no chance: {why_short}."},
+        "momentum_swing": {"analyst": "{clock} Momentum swing to {team}: index {momentum_before} → {momentum_now} over {window_s} s.",
+                           "casual": "{clock} {team} are taking over this game."},
+        "flow_shift": {"analyst": "{clock} Flow: {flow_from} → {flow_to} (chaos {chaos}, {turnovers_per_min} turnovers/min, tempo {tempo_per_min}/min).",
+                       "casual": "{clock} {flow_casual}"},
+        "pressure_shift": {"analyst": "{clock} Pressing shift: {team} now {pressures_per_min} pressures/min vs {opponent_pressures_per_min}.",
+                           "casual": "{clock} {team} are pressing high and hunting the ball."},
+        "difficult_pass": {"analyst": "{clock} {player} completes a {difficulty_pct} difficulty pass ({length_m} m, expected completion {xc_pct}).",
+                           "casual": "{clock} Lovely pass from {player}!"},
+        "pass_streak": {"analyst": "{clock} {player}: {consecutive_completed} consecutive completed passes.",
+                        "casual": "{clock} {player} hasn't misplaced a pass in ages."},
+        "speed_tag": {"analyst": "{clock} SPEED {player} {speed_kmh} km/h.", "casual": "{clock} {player} is flying — {speed_kmh} km/h!"},
+        "distance_tag": {"analyst": "{clock} DISTANCE {player} {distance_km} km covered.", "casual": "{clock} {player} has run {distance_km} km already."},
+        "milestone": {"analyst": "{clock} Milestone: {player} — {value} {stat}.", "casual": "{clock} Milestone for {player}: {value} {stat}!"},
+        "card": {"analyst": "{clock} {card_txt} card: {player} ({team}).", "casual": "{clock} {card_txt} card for {player}."},
+        "substitution": {"analyst": "{clock} Sub {team}: {replacement} on for {player}.", "casual": "{clock} {replacement} comes on for {team}."},
+        "half_time": {"analyst": "Half-time: {score_str}.", "casual": "Half-time — {score_str}."},
+        "full_time": {"analyst": "Full-time: {score_str}.", "casual": "It's all over! {score_str}."},
+    },
+    "es": {
+        "goal": {"analyst": "{clock} GOL {team} — {player} ({xg_txt}). Prob. de victoria {wp_before} → {wp_after}. {score_str}.",
+                 "casual": "{clock} ¡GOOOL! ¡{player} marca para {team}! {score_str}."},
+        "shot": {"analyst": "{clock} Disparo de {player}, {outcome_txt}: {xg_txt}, {speed_txt}.", "casual": "{clock} ¡Lo intenta {player}! {outcome_txt}."},
+        "big_chance_missed": {"analyst": "{clock} Ocasión clara fallada: {player}, {xg_txt}.", "casual": "{clock} ¡Uy! {player} la tuvo."},
+        "save_autopsy": {"analyst": "{clock} Por qué fue parada: {why}.", "casual": "{clock} ¡Paradón! {why_short}."},
+        "goal_autopsy": {"analyst": "{clock} Por qué entró: {why}.", "casual": "{clock} Por qué el portero no llegó: {why_short}."},
+        "momentum_swing": {"analyst": "{clock} Cambio de inercia hacia {team}: {momentum_before} → {momentum_now}.", "casual": "{clock} {team} se adueña del partido."},
+        "flow_shift": {"analyst": "{clock} Ritmo: {flow_from} → {flow_to} (caos {chaos}).", "casual": "{clock} {flow_casual}"},
+        "pressure_shift": {"analyst": "{clock} {team} presiona: {pressures_per_min} presiones/min.", "casual": "{clock} ¡{team} aprieta arriba!"},
+        "difficult_pass": {"analyst": "{clock} {player} completa un pase de dificultad {difficulty_pct} ({length_m} m).", "casual": "{clock} ¡Qué pase de {player}!"},
+        "pass_streak": {"analyst": "{clock} {player}: {consecutive_completed} pases seguidos completados.", "casual": "{clock} {player} no falla un pase."},
+        "speed_tag": {"analyst": "{clock} VELOCIDAD {player} {speed_kmh} km/h.", "casual": "{clock} ¡{player} vuela! {speed_kmh} km/h."},
+        "distance_tag": {"analyst": "{clock} DISTANCIA {player} {distance_km} km.", "casual": "{clock} {player} ya lleva {distance_km} km."},
+        "milestone": {"analyst": "{clock} Hito: {player} — {value} {stat}.", "casual": "{clock} ¡Hito para {player}: {value} {stat}!"},
+        "card": {"analyst": "{clock} Tarjeta {card_txt}: {player} ({team}).", "casual": "{clock} Tarjeta {card_txt} para {player}."},
+        "substitution": {"analyst": "{clock} Cambio {team}: entra {replacement}, sale {player}.", "casual": "{clock} Entra {replacement}."},
+        "half_time": {"analyst": "Descanso: {score_str}.", "casual": "Descanso — {score_str}."},
+        "full_time": {"analyst": "Final: {score_str}.", "casual": "¡Final del partido! {score_str}."},
+    },
+    "fr": {
+        "goal": {"analyst": "{clock} BUT {team} — {player} ({xg_txt}). Prob. de victoire {wp_before} → {wp_after}. {score_str}.",
+                 "casual": "{clock} BUUUT ! {player} marque pour {team} ! {score_str}."},
+        "shot": {"analyst": "{clock} Frappe de {player}, {outcome_txt} : {xg_txt}, {speed_txt}.", "casual": "{clock} {player} tente sa chance — {outcome_txt}."},
+        "big_chance_missed": {"analyst": "{clock} Grosse occasion manquée : {player}, {xg_txt}.", "casual": "{clock} Si près ! {player} aurait dû marquer."},
+        "save_autopsy": {"analyst": "{clock} Pourquoi c'est arrêté : {why}.", "casual": "{clock} Quel arrêt ! {why_short}."},
+        "goal_autopsy": {"analyst": "{clock} Pourquoi c'est rentré : {why}.", "casual": "{clock} Pourquoi le gardien n'y pouvait rien : {why_short}."},
+        "momentum_swing": {"analyst": "{clock} Bascule vers {team} : {momentum_before} → {momentum_now}.", "casual": "{clock} {team} prend le dessus."},
+        "flow_shift": {"analyst": "{clock} Flux : {flow_from} → {flow_to} (chaos {chaos}).", "casual": "{clock} {flow_casual}"},
+        "pressure_shift": {"analyst": "{clock} {team} presse : {pressures_per_min} pressions/min.", "casual": "{clock} {team} presse très haut !"},
+        "difficult_pass": {"analyst": "{clock} {player} réussit une passe de difficulté {difficulty_pct} ({length_m} m).", "casual": "{clock} Superbe passe de {player} !"},
+        "pass_streak": {"analyst": "{clock} {player} : {consecutive_completed} passes réussies d'affilée.", "casual": "{clock} {player} ne rate rien."},
+        "speed_tag": {"analyst": "{clock} VITESSE {player} {speed_kmh} km/h.", "casual": "{clock} {player} file à {speed_kmh} km/h !"},
+        "distance_tag": {"analyst": "{clock} DISTANCE {player} {distance_km} km.", "casual": "{clock} {player} a déjà couru {distance_km} km."},
+        "milestone": {"analyst": "{clock} Cap : {player} — {value} {stat}.", "casual": "{clock} Cap franchi pour {player} : {value} {stat} !"},
+        "card": {"analyst": "{clock} Carton {card_txt} : {player} ({team}).", "casual": "{clock} Carton {card_txt} pour {player}."},
+        "substitution": {"analyst": "{clock} Changement {team} : {replacement} remplace {player}.", "casual": "{clock} {replacement} entre en jeu."},
+        "half_time": {"analyst": "Mi-temps : {score_str}.", "casual": "Mi-temps — {score_str}."},
+        "full_time": {"analyst": "Fin du match : {score_str}.", "casual": "C'est fini ! {score_str}."},
+    },
+    "pt": {
+        "goal": {"analyst": "{clock} GOLO {team} — {player} ({xg_txt}). Prob. de vitória {wp_before} → {wp_after}. {score_str}.",
+                 "casual": "{clock} GOOOLO! {player} marca para o {team}! {score_str}."},
+        "shot": {"analyst": "{clock} Remate de {player}, {outcome_txt}: {xg_txt}, {speed_txt}.", "casual": "{clock} {player} arrisca — {outcome_txt}."},
+        "big_chance_missed": {"analyst": "{clock} Grande ocasião perdida: {player}, {xg_txt}.", "casual": "{clock} Por pouco! {player} tinha de marcar."},
+        "save_autopsy": {"analyst": "{clock} Porque foi defendido: {why}.", "casual": "{clock} Que defesa! {why_short}."},
+        "goal_autopsy": {"analyst": "{clock} Porque entrou: {why}.", "casual": "{clock} Porque o guarda-redes não chegou: {why_short}."},
+        "momentum_swing": {"analyst": "{clock} Mudança de domínio para {team}: {momentum_before} → {momentum_now}.", "casual": "{clock} O {team} está a tomar conta do jogo."},
+        "flow_shift": {"analyst": "{clock} Fluxo: {flow_from} → {flow_to} (caos {chaos}).", "casual": "{clock} {flow_casual}"},
+        "pressure_shift": {"analyst": "{clock} {team} pressiona: {pressures_per_min} pressões/min.", "casual": "{clock} O {team} pressiona alto!"},
+        "difficult_pass": {"analyst": "{clock} {player} completa passe de dificuldade {difficulty_pct} ({length_m} m).", "casual": "{clock} Que passe de {player}!"},
+        "pass_streak": {"analyst": "{clock} {player}: {consecutive_completed} passes certos seguidos.", "casual": "{clock} {player} não falha um passe."},
+        "speed_tag": {"analyst": "{clock} VELOCIDADE {player} {speed_kmh} km/h.", "casual": "{clock} {player} voa a {speed_kmh} km/h!"},
+        "distance_tag": {"analyst": "{clock} DISTÂNCIA {player} {distance_km} km.", "casual": "{clock} {player} já correu {distance_km} km."},
+        "milestone": {"analyst": "{clock} Marco: {player} — {value} {stat}.", "casual": "{clock} Marco para {player}: {value} {stat}!"},
+        "card": {"analyst": "{clock} Cartão {card_txt}: {player} ({team}).", "casual": "{clock} Cartão {card_txt} para {player}."},
+        "substitution": {"analyst": "{clock} Substituição {team}: entra {replacement}, sai {player}.", "casual": "{clock} Entra {replacement}."},
+        "half_time": {"analyst": "Intervalo: {score_str}.", "casual": "Intervalo — {score_str}."},
+        "full_time": {"analyst": "Final: {score_str}.", "casual": "Acabou! {score_str}."},
+    },
+    "de": {
+        "goal": {"analyst": "{clock} TOR {team} — {player} ({xg_txt}). Siegwahrscheinlichkeit {wp_before} → {wp_after}. {score_str}.",
+                 "casual": "{clock} TOOOR! {player} trifft für {team}! {score_str}."},
+        "shot": {"analyst": "{clock} Schuss {player}, {outcome_txt}: {xg_txt}, {speed_txt}.", "casual": "{clock} {player} versucht es — {outcome_txt}."},
+        "big_chance_missed": {"analyst": "{clock} Großchance vergeben: {player}, {xg_txt}.", "casual": "{clock} Knapp! Den muss {player} machen."},
+        "save_autopsy": {"analyst": "{clock} Warum gehalten: {why}.", "casual": "{clock} Was für eine Parade! {why_short}."},
+        "goal_autopsy": {"analyst": "{clock} Warum er drin war: {why}.", "casual": "{clock} Warum der Keeper chancenlos war: {why_short}."},
+        "momentum_swing": {"analyst": "{clock} Momentum kippt zu {team}: {momentum_before} → {momentum_now}.", "casual": "{clock} {team} übernimmt das Spiel."},
+        "flow_shift": {"analyst": "{clock} Spielfluss: {flow_from} → {flow_to} (Chaos {chaos}).", "casual": "{clock} {flow_casual}"},
+        "pressure_shift": {"analyst": "{clock} {team} presst: {pressures_per_min} Pressings/Min.", "casual": "{clock} {team} presst jetzt ganz hoch!"},
+        "difficult_pass": {"analyst": "{clock} {player} spielt einen Pass mit Schwierigkeit {difficulty_pct} ({length_m} m).", "casual": "{clock} Herrlicher Pass von {player}!"},
+        "pass_streak": {"analyst": "{clock} {player}: {consecutive_completed} angekommene Pässe in Folge.", "casual": "{clock} {player} leistet sich keinen Fehlpass."},
+        "speed_tag": {"analyst": "{clock} TEMPO {player} {speed_kmh} km/h.", "casual": "{clock} {player} fliegt mit {speed_kmh} km/h!"},
+        "distance_tag": {"analyst": "{clock} DISTANZ {player} {distance_km} km.", "casual": "{clock} {player} hat schon {distance_km} km abgespult."},
+        "milestone": {"analyst": "{clock} Meilenstein: {player} — {value} {stat}.", "casual": "{clock} Meilenstein für {player}: {value} {stat}!"},
+        "card": {"analyst": "{clock} {card_txt} Karte: {player} ({team}).", "casual": "{clock} {card_txt} Karte für {player}."},
+        "substitution": {"analyst": "{clock} Wechsel {team}: {replacement} für {player}.", "casual": "{clock} {replacement} kommt rein."},
+        "half_time": {"analyst": "Halbzeit: {score_str}.", "casual": "Halbzeit — {score_str}."},
+        "full_time": {"analyst": "Abpfiff: {score_str}.", "casual": "Aus, aus, das Spiel ist aus! {score_str}."},
+    },
+}
+WORDS = {
+    "en": {"saved": "saved", "off_target": "off target", "blocked": "blocked", "goal": "goal", "yellow": "Yellow", "red": "Red",
+           "chaos": "This has turned into a scrappy, end-to-end game.", "control": "{team} have settled and are keeping the ball.",
+           "balanced": "The game has settled into a balanced rhythm.", "passes": "passes", "goals": "goals", "hat-trick": "hat-trick",
+           "recap_title": "Match recap", "your": "your"},
+    "es": {"saved": "parado", "off_target": "fuera", "blocked": "bloqueado", "goal": "gol", "yellow": "amarilla", "red": "roja",
+           "chaos": "El partido se ha vuelto loco, de área a área.", "control": "{team} se ha asentado y tiene el balón.",
+           "balanced": "El partido está equilibrado.", "passes": "pases", "goals": "goles", "hat-trick": "hat-trick",
+           "recap_title": "Resumen del partido", "your": "tu"},
+    "fr": {"saved": "arrêté", "off_target": "à côté", "blocked": "contré", "goal": "but", "yellow": "jaune", "red": "rouge",
+           "chaos": "Le match est devenu fou, d'un but à l'autre.", "control": "{team} a pris le contrôle du ballon.",
+           "balanced": "Le match est équilibré.", "passes": "passes", "goals": "buts", "hat-trick": "triplé",
+           "recap_title": "Résumé du match", "your": "votre"},
+    "pt": {"saved": "defendido", "off_target": "ao lado", "blocked": "bloqueado", "goal": "golo", "yellow": "amarelo", "red": "vermelho",
+           "chaos": "O jogo está partido, de área a área.", "control": "O {team} assentou e controla a bola.",
+           "balanced": "O jogo está equilibrado.", "passes": "passes", "goals": "golos", "hat-trick": "hat-trick",
+           "recap_title": "Resumo do jogo", "your": "a tua equipa"},
+    "de": {"saved": "gehalten", "off_target": "vorbei", "blocked": "geblockt", "goal": "Tor", "yellow": "Gelbe", "red": "Rote",
+           "chaos": "Das Spiel ist völlig offen, hin und her.", "control": "{team} hat sich gefangen und kontrolliert den Ball.",
+           "balanced": "Das Spiel ist ausgeglichen.", "passes": "Pässe", "goals": "Tore", "hat-trick": "Hattrick",
+           "recap_title": "Spielbericht", "your": "dein Team"},
+}

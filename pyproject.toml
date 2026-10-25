@@ -1,0 +1,52 @@
+[project]
+name = "hunt-autopsy"
+version = "0.1.0"
+description = "Explain WHY an attack succeeded or failed, working backwards from a known outcome. Hunts, simulated chases and synthetic football share one event layer."
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = { text = "AGPL-3.0-or-later" }
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "lightgbm>=4.3",
+    "pydantic>=2.6",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "openai>=1.40",
+    "python-dotenv>=1.0",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+# Video I/O + CPU perception (OpenCV Lucas-Kanade point tracking, camera compensation, overlays).
+video = ["opencv-python-headless>=4.9", "imageio-ffmpeg>=0.5"]
+# GPU-class perception: YOLO + ByteTrack/BoT-SORT, CoTracker3 via torch.hub, roboflow supervision.
+vision = [
+    "opencv-python-headless>=4.9",
+    "imageio-ffmpeg>=0.5",
+    "torch>=2.2",
+    "torchvision>=0.17",
+    "ultralytics>=8.3",
+    "lap>=0.5.12",
+    "supervision>=0.25",
+]
+# Optional extras for the timing model and Azure auth.
+survival = ["lifelines>=0.29"]
+azure = ["azure-identity>=1.16"]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["events*", "ingest*", "perception*", "sim*", "explain*", "narrate*", "football*", "agents*", "app*", "evals*"]
+
+[tool.setuptools.package-data]
+app = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

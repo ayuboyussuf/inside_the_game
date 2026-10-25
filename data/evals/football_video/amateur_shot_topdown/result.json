@@ -1,0 +1,48 @@
+{
+ "clip": "amateur_shot_topdown",
+ "frames_sampled": 120,
+ "source_fps": 29.97002997002997,
+ "stride": 3,
+ "duration_s": 11.9,
+ "model": "yolo11s.pt",
+ "imgsz": 1280,
+ "seconds": 179.1,
+ "players": {
+  "on_pitch_per_frame": 5.9,
+  "crowd_or_bench_per_frame": 0.0,
+  "median_height_px": 17.0
+ },
+ "ball": {
+  "frames_with_ball": 0.0,
+  "n_ball_tracks": 0,
+  "longest_ball_track_frames": 0
+ },
+ "tracking": {
+  "person_tracks": 36,
+  "id_births_per_s": 3.02,
+  "median_track_len_s": 1.0
+ },
+ "teams": {
+  "clusters": [
+   80,
+   136,
+   21
+  ],
+  "silhouette": 0.498,
+  "track_purity": 0.9
+ },
+ "scene": {
+  "cuts": 0,
+  "graphics_rows_share": 0.0,
+  "pitch_green_share": 0.868
+ },
+ "pitch": {
+  "mean_long_lines": 0.0,
+  "homography": "not available (no pitch keypoint model)"
+ },
+ "events": {
+  "generated": 0,
+  "passes": 0,
+  "turnovers": 0
+ }
+}

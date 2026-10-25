@@ -1,0 +1,49 @@
+{
+ "clip": "amateur_shot_topdown",
+ "pipeline": "v2",
+ "frames": 240,
+ "fps": 30.0,
+ "seconds": 1254.8,
+ "models": {
+  "players": "coco",
+  "ball": "coco",
+  "pitch": false
+ },
+ "players": {
+  "on_pitch_per_frame": 6.4,
+  "off_pitch_per_frame": 0.0
+ },
+ "tracking": {
+  "person_tracks": 18,
+  "id_births_per_s": 2.26,
+  "median_track_len_s": 2.04,
+  "coverage_2s": 0.847
+ },
+ "ball": {
+  "detected_share": 0.0,
+  "with_position_share": 0.0
+ },
+ "scene": {
+  "cuts": 0
+ },
+ "pitch": {
+  "homography_share": 0.0
+ },
+ "audit_frames": {
+  "6.0": {
+   "ball": null,
+   "ball_state": "lost",
+   "people": [
+    {
+     "xyxy": [
+      789.868408203125,
+      278.919189453125,
+      798.3297729492188,
+      296.7411804199219
+     ],
+     "on_pitch": true
+    }
+   ]
+  }
+ }
+}

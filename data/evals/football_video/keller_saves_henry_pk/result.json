@@ -1,0 +1,48 @@
+{
+ "clip": "keller_saves_henry_pk",
+ "frames_sampled": 90,
+ "source_fps": 30.0,
+ "stride": 3,
+ "duration_s": 8.9,
+ "model": "yolo11s.pt",
+ "imgsz": 1280,
+ "seconds": 175.4,
+ "players": {
+  "on_pitch_per_frame": 10.5,
+  "crowd_or_bench_per_frame": 0.2,
+  "median_height_px": 65.3
+ },
+ "ball": {
+  "frames_with_ball": 0.022,
+  "n_ball_tracks": 1,
+  "longest_ball_track_frames": 2
+ },
+ "tracking": {
+  "person_tracks": 72,
+  "id_births_per_s": 8.09,
+  "median_track_len_s": 0.8
+ },
+ "teams": {
+  "clusters": [
+   84,
+   225,
+   159
+  ],
+  "silhouette": 0.591,
+  "track_purity": 0.867
+ },
+ "scene": {
+  "cuts": 0,
+  "graphics_rows_share": 0.0,
+  "pitch_green_share": 0.737
+ },
+ "pitch": {
+  "mean_long_lines": 92.6,
+  "homography": "not available (no pitch keypoint model)"
+ },
+ "events": {
+  "generated": 0,
+  "passes": 0,
+  "turnovers": 0
+ }
+}

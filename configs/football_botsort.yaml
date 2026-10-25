@@ -1,0 +1,13 @@
+# BoT-SORT tuned for broadcast football (see docs/FOOTBALL_VIDEO_EVAL.md)
+tracker_type: botsort
+track_high_thresh: 0.3     # players are confident detections; keep the first stage clean
+track_low_thresh: 0.05     # but recover partly occluded / blurred players in the second stage
+new_track_thresh: 0.35     # fewer spurious new IDs (the main failure in eval 11)
+track_buffer: 90           # keep lost players alive ~3 s at 30 fps (occlusions in duels, walls)
+match_thresh: 0.85
+fuse_score: True
+gmc_method: sparseOptFlow  # broadcast cameras pan and zoom constantly
+proximity_thresh: 0.5
+appearance_thresh: 0.25    # re-ID by appearance; kit colours differ between teams
+with_reid: True
+model: auto                # use the detector's own features as the re-ID embedding

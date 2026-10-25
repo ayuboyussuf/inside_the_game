@@ -1,0 +1,70 @@
+{
+ "clip": "latvia_gibraltar",
+ "pipeline": "v2",
+ "frames": 127,
+ "fps": 30.0,
+ "seconds": 816.4,
+ "models": {
+  "players": "coco",
+  "ball": "coco",
+  "pitch": false
+ },
+ "players": {
+  "on_pitch_per_frame": 7.0,
+  "off_pitch_per_frame": 3.4
+ },
+ "tracking": {
+  "person_tracks": 85,
+  "id_births_per_s": 20.24,
+  "median_track_len_s": 0.33,
+  "coverage_2s": 0.071
+ },
+ "ball": {
+  "detected_share": 0.11,
+  "with_position_share": 0.48
+ },
+ "scene": {
+  "cuts": 0
+ },
+ "pitch": {
+  "homography_share": 0.0
+ },
+ "audit_frames": {
+  "2.1": {
+   "ball": [
+    7.703589916229248,
+    244.05178833007812
+   ],
+   "ball_state": "predicted",
+   "people": [
+    {
+     "xyxy": [
+      1082.26416015625,
+      671.8180541992188,
+      1251.9488525390625,
+      719.1961669921875
+     ],
+     "on_pitch": false
+    },
+    {
+     "xyxy": [
+      407.9825439453125,
+      365.8438720703125,
+      458.987060546875,
+      481.2839660644531
+     ],
+     "on_pitch": true
+    },
+    {
+     "xyxy": [
+      56.12620162963867,
+      229.26194763183594,
+      73.45244598388672,
+      276.4239501953125
+     ],
+     "on_pitch": true
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,116 @@
+{
+ "note": "Manual audit of annotated frames written by evals/football_video.py (yolo11s, imgsz 1280, conf 0.15). Counts are on-pitch people (players, referees, assistants). detected_correct = boxes on real on-pitch people; false_pos_on_pitch = boxes marked on-pitch that are not (photographers, stewards inside the pitch mask). ball_visible null = could not tell at this resolution. ball_xy = annotated ball centre in the 1280-px-max frame used by both pipelines.",
+ "auditor": "manual, 2026-10-22",
+ "frames": [
+  {
+   "clip": "everton_oxford_highlights",
+   "t": 4.0,
+   "visible_players": 27,
+   "detected_correct": 23,
+   "false_pos_on_pitch": 0,
+   "ball_visible": true,
+   "ball_detected": false,
+   "notes": "players in motion blur missed; ball in air near far touchline missed; crowd correctly off-pitch",
+   "ball_xy": [
+    658,
+    180
+   ]
+  },
+  {
+   "clip": "everton_oxford_highlights",
+   "t": 10.0,
+   "visible_players": 18,
+   "detected_correct": 15,
+   "false_pos_on_pitch": 0,
+   "ball_visible": null,
+   "ball_detected": false,
+   "notes": "far-side players missed"
+  },
+  {
+   "clip": "fra_ger_open_play",
+   "t": 6.0,
+   "visible_players": 20,
+   "detected_correct": 14,
+   "false_pos_on_pitch": 6,
+   "ball_visible": false,
+   "ball_detected": false,
+   "notes": "fan-stand view: far players ~30 px tall, keeper missed; stewards/photographers on the touchline fall inside the pitch hull"
+  },
+  {
+   "clip": "valencia_wc2022_goal",
+   "t": 3.2,
+   "visible_players": 20,
+   "detected_correct": 12,
+   "false_pos_on_pitch": 0,
+   "ball_visible": true,
+   "ball_detected": false,
+   "notes": "players packed in a wall merge into one blob; crouching player and keeper missed; ball clearly visible, missed",
+   "ball_xy": [
+    358,
+    355
+   ]
+  },
+  {
+   "clip": "fra_ger_kroos_penalty",
+   "t": 6.0,
+   "visible_players": 13,
+   "detected_correct": 12,
+   "false_pos_on_pitch": 1,
+   "ball_visible": true,
+   "ball_detected": true,
+   "notes": "stationary ball on the spot detected; one photographer behind the goal counted on-pitch",
+   "ball_xy": [
+    822,
+    385
+   ]
+  },
+  {
+   "clip": "amateur_shot_topdown",
+   "t": 6.0,
+   "visible_players": 10,
+   "detected_correct": 1,
+   "false_pos_on_pitch": 0,
+   "ball_visible": false,
+   "ball_detected": false,
+   "notes": "top-down drone: players are ~10 px blobs; COCO person detector trained on side views fails"
+  },
+  {
+   "clip": "latvia_gibraltar",
+   "t": 2.1,
+   "visible_players": 3,
+   "detected_correct": 0,
+   "false_pos_on_pitch": 0,
+   "ball_visible": false,
+   "ball_detected": false,
+   "notes": "pyrotechnic smoke and green goalkeeper kit on green pitch: nothing detected"
+  },
+  {
+   "clip": "keller_saves_henry_pk",
+   "t": 3.0,
+   "visible_players": 8,
+   "detected_correct": 8,
+   "false_pos_on_pitch": 2,
+   "ball_visible": true,
+   "ball_detected": false,
+   "notes": "ball in the air after the kick missed; photographer and steward counted on-pitch",
+   "ball_xy": [
+    190,
+    233
+   ]
+  },
+  {
+   "clip": "keller_saves_henry_pk",
+   "t": 6.0,
+   "visible_players": 12,
+   "detected_correct": 10,
+   "false_pos_on_pitch": 4,
+   "ball_visible": true,
+   "ball_detected": false,
+   "notes": "keeper (dark kit against the net) missed; ball rolling in the box missed",
+   "ball_xy": [
+    302,
+    228
+   ]
+  }
+ ]
+}

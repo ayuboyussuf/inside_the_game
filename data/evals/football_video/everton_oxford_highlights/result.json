@@ -1,0 +1,48 @@
+{
+ "clip": "everton_oxford_highlights",
+ "frames_sampled": 120,
+ "source_fps": 50.0,
+ "stride": 5,
+ "duration_s": 11.9,
+ "model": "yolo11s.pt",
+ "imgsz": 1280,
+ "seconds": 152.2,
+ "players": {
+  "on_pitch_per_frame": 12.8,
+  "crowd_or_bench_per_frame": 1.4,
+  "median_height_px": 45.8
+ },
+ "ball": {
+  "frames_with_ball": 0.05,
+  "n_ball_tracks": 2,
+  "longest_ball_track_frames": 3
+ },
+ "tracking": {
+  "person_tracks": 135,
+  "id_births_per_s": 11.34,
+  "median_track_len_s": 0.9
+ },
+ "teams": {
+  "clusters": [
+   307,
+   59,
+   462
+  ],
+  "silhouette": 0.554,
+  "track_purity": 0.909
+ },
+ "scene": {
+  "cuts": 0,
+  "graphics_rows_share": 0.0,
+  "pitch_green_share": 0.452
+ },
+ "pitch": {
+  "mean_long_lines": 163.2,
+  "homography": "not available (no pitch keypoint model)"
+ },
+ "events": {
+  "generated": 0,
+  "passes": 0,
+  "turnovers": 0
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "clip": "fra_ger_kroos_penalty",
+ "frames_sampled": 120,
+ "source_fps": 30.0,
+ "stride": 3,
+ "duration_s": 11.9,
+ "model": "yolo11s.pt",
+ "imgsz": 1280,
+ "seconds": 267.1,
+ "players": {
+  "on_pitch_per_frame": 13.9,
+  "crowd_or_bench_per_frame": 11.8,
+  "median_height_px": 86.1
+ },
+ "ball": {
+  "frames_with_ball": 0.975,
+  "n_ball_tracks": 7,
+  "longest_ball_track_frames": 106
+ },
+ "tracking": {
+  "person_tracks": 43,
+  "id_births_per_s": 3.61,
+  "median_track_len_s": 9.6
+ },
+ "teams": {
+  "clusters": [
+   88,
+   52,
+   56
+  ],
+  "silhouette": 0.583,
+  "track_purity": 0.912
+ },
+ "scene": {
+  "cuts": 0,
+  "graphics_rows_share": 0.0,
+  "pitch_green_share": 0.394
+ },
+ "pitch": {
+  "mean_long_lines": 25.5,
+  "homography": "not available (no pitch keypoint model)"
+ },
+ "events": {
+  "generated": 5,
+  "passes": 5,
+  "turnovers": 0
+ }
+}

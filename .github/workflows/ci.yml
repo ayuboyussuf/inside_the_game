@@ -1,0 +1,13 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env: { HUNT_AUTOPSY_OFFLINE: "1" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { python-version: "3.11" }
+      - run: uv venv && uv pip install -e ".[dev,video]"
+      - run: uv run pytest -q
+      - run: uv run python -m evals.run_all --quick

@@ -1,0 +1,74 @@
+[
+ {
+  "clip": "sim-compound-7-0000",
+  "A": "Escaped! It came down to speed ratio — 1.20x. Turning point at 2.21 s.",
+  "B": "Escaped! It came down to reaction delay — 1.15 s. Turning point at 1.43 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0001",
+  "A": "Caught! It came down to direction changes — 1. Turning point at 1.15 s.",
+  "B": "Caught! It came down to direction changes — 1. Turning point at 1.17 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0002",
+  "A": "Escaped! It came down to direction changes — 0. Turning point at 2.22 s.",
+  "B": "Escaped! It came down to reaction delay — 0.48 s. Turning point at 2.09 s.",
+  "answer": "B"
+ },
+ {
+  "clip": "sim-compound-7-0003",
+  "A": "Escaped! It came down to turn sharpness — 84°. Turning point at 2.31 s.",
+  "B": "Escaped! It came down to reaction delay — 0.49 s. Turning point at 2.03 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0004",
+  "A": "Escaped! It came down to direction changes — 2. Turning point at 1.65 s.",
+  "B": "Escaped! It came down to reaction delay — 0.88 s. Turning point at 0.73 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0005",
+  "A": "Caught! It came down to reaction delay — 1.15 s. Turning point at 1.43 s.",
+  "B": "Caught! It came down to direction changes — 0. Turning point at 1.76 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0006",
+  "A": "Caught! It came down to direction changes — 1. Turning point at 1.17 s.",
+  "B": "Caught! It came down to reaction delay — 0.50 s. Turning point at 3.40 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0007",
+  "A": "Caught! It came down to direction changes — 0. Turning point at 2.22 s.",
+  "B": "Caught! It came down to speed ratio — 1.20x. Turning point at 2.21 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0008",
+  "A": "Escaped! It came down to reaction delay — 0.49 s. Turning point at 2.03 s.",
+  "B": "Escaped! It came down to direction changes — 1. Turning point at 1.15 s.",
+  "answer": "A"
+ },
+ {
+  "clip": "sim-compound-7-0009",
+  "A": "Caught! It came down to reaction delay — 0.48 s. Turning point at 2.09 s.",
+  "B": "Caught! It came down to reaction delay — 0.88 s. Turning point at 0.73 s.",
+  "answer": "B"
+ },
+ {
+  "clip": "sim-compound-7-0010",
+  "A": "Caught! It came down to turn sharpness — 84°. Turning point at 2.31 s.",
+  "B": "Caught! It came down to direction changes — 0. Turning point at 1.76 s.",
+  "answer": "B"
+ },
+ {
+  "clip": "sim-compound-7-0011",
+  "A": "Escaped! It came down to reaction delay — 0.50 s. Turning point at 3.40 s.",
+  "B": "Escaped! It came down to direction changes — 2. Turning point at 1.65 s.",
+  "answer": "A"
+ }
+]

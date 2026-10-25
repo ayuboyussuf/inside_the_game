@@ -1,0 +1,44 @@
+[
+ {
+  "clip": "eval_render_0",
+  "points": "lk",
+  "seconds": 0.2,
+  "health": {
+   "dots_alive_at_end": {
+    "body": 0.0,
+    "background": 0.0
+   },
+   "id_births_after_first_frame": 1,
+   "n_dots": 230
+  },
+  "pred": {
+   "speed_mae_bl_s": 0.926,
+   "peak_err_bl_s": 1.379
+  },
+  "prey": {
+   "speed_mae_bl_s": 3.44,
+   "peak_err_bl_s": 8.542
+  }
+ },
+ {
+  "clip": "eval_render_0",
+  "points": "tapnet",
+  "seconds": 1125.2,
+  "health": {
+   "dots_alive_at_end": {
+    "body": 0.25,
+    "background": 0.0
+   },
+   "id_births_after_first_frame": 1,
+   "n_dots": 230
+  },
+  "pred": {
+   "speed_mae_bl_s": 1.176,
+   "peak_err_bl_s": 2.277
+  },
+  "prey": {
+   "speed_mae_bl_s": 3.4,
+   "peak_err_bl_s": 7.966
+  }
+ }
+]

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hunt Autopsy — Inside the Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="logo">HA</div>
+      <div>
+        <div class="title">Hunt Autopsy</div>
+        <div class="sub">Explainable match intelligence · works backwards from the outcome</div>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="live" role="tab">Live match</button>
+      <button class="tab" data-tab="autopsy" role="tab">Autopsy lab</button>
+      <button class="tab" data-tab="evals" role="tab">Evals</button>
+    </nav>
+    <div class="status" id="status"><span class="dot"></span><span id="statusText">connecting…</span></div>
+  </header>
+
+  <!-- ============================== LIVE ============================== -->
+  <main id="tab-live" class="tabpane active">
+    <section class="controls card">
+      <div class="row">
+        <label>Home<select id="home"></select></label>
+        <label>Away<select id="away"></select></label>
+        <label>Seed<input id="seed" type="number" value="7" min="1" max="9999" /></label>
+        <label>Speed<select id="speed">
+          <option value="30">30× (3 min)</option><option value="60" selected>60× (90 s)</option>
+          <option value="120">120×</option><option value="400">400×</option></select></label>
+        <button id="kickoff" class="primary">▶ Kick off</button>
+        <button id="pause" class="ghost" disabled>❚❚ Pause</button>
+        <label class="check"><input type="checkbox" id="split" checked /> Two viewers side by side</label>
+      </div>
+      <div class="viewers">
+        <div class="viewer" data-v="a">
+          <div class="vlabel">Viewer A</div>
+          <select class="persona"></select><select class="lang"></select>
+          <select class="club"><option value="">No favourite club</option></select>
+          <select class="player"><option value="">No favourite player</option></select>
+        </div>
+        <div class="viewer" data-v="b">
+          <div class="vlabel">Viewer B</div>
+          <select class="persona"></select><select class="lang"></select>
+          <select class="club"><option value="">No favourite club</option></select>
+          <select class="player"><option value="">No favourite player</option></select>
+        </div>
+      </div>
+    </section>
+
+    <section class="broadcast">
+      <div class="stage card">
+        <div class="scorebug" id="scorebug">
+          <span class="sb-team" id="sbHome">HOME</span><span class="sb-score" id="sbScore">0 – 0</span><span class="sb-team" id="sbAway">AWAY</span><span class="sb-clock" id="sbClock">0'</span>
+        </div>
+        <div class="wp" id="wp"><div class="wp-h"></div><div class="wp-d"></div><div class="wp-a"></div></div>
+        <canvas id="pitch" width="1050" height="680" aria-label="Pitch view"></canvas>
+        <div class="overlay-layer" id="overlayA"></div>
+        <div class="ticker" id="ticker"></div>
+      </div>
+      <div class="side">
+        <div class="card">
+          <div class="card-h">Flow — control vs chaos</div>
+          <div class="flow">
+            <div class="flow-bar"><div id="flowCtrlH" class="seg h"></div><div id="flowChaos" class="seg c"></div><div id="flowCtrlA" class="seg a"></div></div>
+            <div class="flow-legend"><span id="flowLabel">balanced</span><span id="tempo"></span></div>
+          </div>
+          <canvas id="momentum" width="420" height="110" aria-label="Momentum"></canvas>
+          <div class="mini-legend"><span>momentum</span><span>win probability (home)</span></div>
+        </div>
+        <div class="card">
+          <div class="card-h">Team stats</div>
+          <div id="stats" class="stats"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feeds">
+      <div class="card feed" id="feedA"><div class="card-h"><span>Viewer A</span><span class="feed-tag" id="tagA"></span></div><div class="lines"></div></div>
+      <div class="card feed" id="feedB"><div class="card-h"><span>Viewer B</span><span class="feed-tag" id="tagB"></span></div><div class="lines"></div></div>
+      <div class="card feed trace" id="trace"><div class="card-h"><span>Agent trace</span><span class="feed-tag">ingest → stats → moments → autopsy → personalizer → narrator ⇄ fact-check → overlay</span></div><div class="lines mono"></div></div>
+    </section>
+
+    <section class="card recapcard">
+      <div class="card-h"><span>Automated recap</span>
+        <span><button id="recapA" class="ghost">Recap for viewer A</button><button id="recapB" class="ghost">Recap for viewer B</button></span></div>
+      <pre id="recap" class="recap">Start a match, then ask for a recap at any time (half-time, full-time or mid-game).</pre>
+      <div id="recapMeta" class="muted"></div>
+    </section>
+  </main>
+
+  <!-- ============================== AUTOPSY ============================== -->
+  <main id="tab-autopsy" class="tabpane">
+    <section class="lab">
+      <aside class="card lib">
+        <div class="card-h">Analyse your own clip</div>
+        <form id="uploadForm" class="upload">
+          <label class="drop" id="drop"><input type="file" id="clipFile" accept="video/*" required />
+            <span id="dropText">Drop a video of ONE chase (5–15 s), or click to choose</span></label>
+          <div class="uprow">
+            <label>Known outcome<select id="clipOutcome" required>
+              <option value="">— choose —</option><option value="caught">Caught</option><option value="escaped">Escaped</option></select></label>
+            <label>Trim from (s)<input type="number" id="clipStart" min="0" step="0.1" placeholder="0" /></label>
+            <label>to (s)<input type="number" id="clipEnd" min="0" step="0.1" placeholder="end" /></label>
+          </div>
+          <label>Animals in the clip (predator, prey) — optional<input type="text" id="clipAnimals" placeholder="e.g. cat, pigeon" /></label>
+          <details class="adv"><summary>Advanced</summary>
+            <label>Detector<select id="clipDetector"><option value="yolo">YOLO (real footage)</option><option value="blobs">Colour blobs (rendered test clips)</option></select></label>
+          </details>
+          <button class="primary" type="submit" id="clipGo">Analyse clip</button>
+          <div id="clipStatus" class="muted small"></div>
+          <div class="chips" id="myClips"></div>
+        </form>
+        <div class="card-h" style="margin-top:14px">Library</div>
+        <div id="scenarios"></div>
+      </aside>
+      <section class="card playback">
+        <div class="card-h"><span id="epTitle">Pick a clip</span><span id="epOutcome" class="pill"></span></div>
+        <div class="vid-wrap"><video id="video" controls muted playsinline hidden></video><canvas id="arena" width="900" height="520"></canvas></div>
+        <div class="timeline">
+          <button id="play" class="ghost">▶</button>
+          <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="time" />
+          <span id="tnow" class="mono">0.00 s</span>
+        </div>
+        <canvas id="curve" width="900" height="120" aria-label="Outcome probability over time"></canvas>
+        <div class="muted small">Line: model's chance of the actual outcome over time. Band: decisive moment. Ticks: detected events.</div>
+      </section>
+      <aside class="card explain">
+        <div class="card-h"><span>Why?</span>
+          <span><select id="apersona"><option value="analyst">Analyst</option><option value="casual">Casual</option><option value="kids">Young fan</option></select>
+          <select id="alang"></select></span></div>
+        <p id="narration" class="narration">—</p>
+        <div id="narrSrc" class="muted small"></div>
+        <div id="factors"></div>
+        <div id="cf" class="cf"></div>
+        <div id="truth" class="truth"></div>
+        <button id="askLLM" class="ghost">Ask the narrator agent (LLM, fact-checked)</button>
+        <div class="caveat">Explanatory factors with evidence, not proof of causation. Evals 1–2 test that the factors are the real ones.</div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- ============================== EVALS ============================== -->
+  <main id="tab-evals" class="tabpane">
+    <section class="card">
+      <div class="card-h"><span>Eval suite — <span class="mono">python -m evals.run_all</span></span><span id="evalWhen" class="muted"></span></div>
+      <table class="evals" id="evals"><thead><tr><th>#</th><th>Eval</th><th>Layer</th><th>Result</th><th>Bar</th><th>Status</th></tr></thead><tbody></tbody></table>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

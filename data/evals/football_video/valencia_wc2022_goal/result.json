@@ -1,0 +1,48 @@
+{
+ "clip": "valencia_wc2022_goal",
+ "frames_sampled": 120,
+ "source_fps": 25.0,
+ "stride": 2,
+ "duration_s": 9.5,
+ "model": "yolo11s.pt",
+ "imgsz": 1280,
+ "seconds": 209.4,
+ "players": {
+  "on_pitch_per_frame": 9.7,
+  "crowd_or_bench_per_frame": 0.0,
+  "median_height_px": 42.1
+ },
+ "ball": {
+  "frames_with_ball": 0.0,
+  "n_ball_tracks": 0,
+  "longest_ball_track_frames": 0
+ },
+ "tracking": {
+  "person_tracks": 20,
+  "id_births_per_s": 2.1,
+  "median_track_len_s": 3.04
+ },
+ "teams": {
+  "clusters": [
+   27,
+   23,
+   65
+  ],
+  "silhouette": 0.621,
+  "track_purity": 0.878
+ },
+ "scene": {
+  "cuts": 0,
+  "graphics_rows_share": 0.829,
+  "pitch_green_share": 0.954
+ },
+ "pitch": {
+  "mean_long_lines": 33.0,
+  "homography": "not available (no pitch keypoint model)"
+ },
+ "events": {
+  "generated": 0,
+  "passes": 0,
+  "turnovers": 0
+ }
+}

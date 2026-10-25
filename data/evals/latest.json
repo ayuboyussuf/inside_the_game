@@ -1,0 +1,543 @@
+{
+ "when": "2026-10-22 14:07 UTC",
+ "seconds": 98.0,
+ "results": [
+  {
+   "id": 1,
+   "name": "Planted-cause recovery",
+   "layer": "Explainer",
+   "how": "6 planted chase rules + planted keeper model; top factor must be the planted cause",
+   "result": "91.9% overall (worst rule 69%)",
+   "bar": "≥ 80% of clips",
+   "status": "PASS",
+   "detail": {
+    "reaction": 1.0,
+    "separation": 0.995,
+    "turns": 1.0,
+    "compound": 1.0,
+    "pack": 1.0,
+    "screening": 1.0,
+    "football_shots": 0.69
+   },
+   "seconds": 29.0
+  },
+  {
+   "id": 2,
+   "name": "Deletion faithfulness",
+   "layer": "Explainer",
+   "how": "replace top feature vs a random feature with the training median; compare |Δp|",
+   "result": "top/random drop = 21.6×",
+   "bar": "> 2×",
+   "status": "PASS",
+   "detail": {
+    "compound": 6.02,
+    "reaction": 18.59,
+    "turns": 40.06
+   },
+   "seconds": 21.3
+  },
+  {
+   "id": 3,
+   "name": "Outcome prediction",
+   "layer": "Explainer",
+   "how": "5-fold CV on synthetic stand-ins (0 real clips < 10; add clips to switch to leave-one-clip-out)",
+   "result": "chases (compound, n=200): AUC 0.91, acc 94% vs 72%; shots (n=400): AUC 0.84, acc 80% vs 73%",
+   "bar": "beats majority; report AUC",
+   "status": "PASS",
+   "detail": {
+    "chases (compound, n=200)": {
+     "auc": 0.908,
+     "acc": 0.945,
+     "majority": 0.725
+    },
+    "shots (n=400)": {
+     "auc": 0.837,
+     "acc": 0.795,
+     "majority": 0.728
+    }
+   },
+   "seconds": 2.3
+  },
+  {
+   "id": 4,
+   "name": "Stability",
+   "layer": "Explainer",
+   "how": "5 seeds × bootstrap refits × 0–0.3 s edge trims; reported factors (top + secondaries ≥ 25% of its weight) must repeat",
+   "result": "80% of clips keep the same reported top-2 in ≥4/5 runs; top-1 alone 92%",
+   "bar": "same top-2 in ≥ 4 of 5 runs (≥ 80% of clips)",
+   "status": "PASS",
+   "detail": {
+    "share": 0.8,
+    "top1": 0.9166666666666666
+   },
+   "seconds": 21.6
+  },
+  {
+   "id": 5,
+   "name": "Flip invariance",
+   "layer": "Features",
+   "how": "mirror every clip horizontally",
+   "result": "max |Δfeature| = 0.0e+00, max |Δp| = 0.0e+00",
+   "bar": "unchanged",
+   "status": "PASS",
+   "detail": {},
+   "seconds": 4.7
+  },
+  {
+   "id": 6,
+   "name": "Camera compensation",
+   "layer": "Perception",
+   "how": "background dots on 6 rendered pan+zoom clips, 0.5 s windows",
+   "result": "0.015 BL/s after (raw camera motion 2.18 BL/s)",
+   "bar": "< 0.1 BL/s",
+   "status": "PASS",
+   "detail": {
+    "compensated": 0.014704817457263517,
+    "raw": 2.175494090445272
+   },
+   "seconds": 0.1
+  },
+  {
+   "id": 7,
+   "name": "Event timing",
+   "layer": "Events",
+   "how": "detected vs ground-truth sprint start / first flee move",
+   "result": "tracks: sprint 95%, flee 93% within 0.3 s; video: sprint 83%, flee 100%",
+   "bar": "within 0.3 s on most clips (≥ 70%)",
+   "status": "PASS",
+   "detail": {
+    "median_err_tracks": {
+     "sprint_start": 0.04361500000000007,
+     "flee_start": 0.04628499999999991
+    }
+   },
+   "seconds": 0.3
+  },
+  {
+   "id": 8,
+   "name": "Track health",
+   "layer": "Perception",
+   "how": "share of dots alive at clip end; new track IDs after frame 0 (ID switches)",
+   "result": "body dots alive 9%, background 5% (pans push them out of frame); ID births/clip 0.8",
+   "bar": "watch the overlay; log both numbers",
+   "status": "INFO",
+   "detail": {
+    "body": [
+     0.0,
+     0.0,
+     0.0,
+     0.3333333333333333,
+     0.0,
+     0.2
+    ],
+    "background": [
+     0.0,
+     0.0,
+     0.13333333333333333,
+     0.0,
+     0.16666666666666666,
+     0.0
+    ],
+    "id_births": [
+     1,
+     1,
+     0,
+     1,
+     0,
+     2
+    ]
+   },
+   "seconds": 0.0
+  },
+  {
+   "id": 9,
+   "name": "Grounded narration",
+   "layer": "Narrator",
+   "how": "every number in the text must appear in the evidence JSON (rule check, no LLM)",
+   "result": "0 unsupported in 1200 autopsy narrations (5 languages × 2 personas); 0 live lines rejected by fact-check; LLM not configured",
+   "bar": "zero unsupported numbers",
+   "status": "PASS",
+   "detail": {
+    "examples": []
+   },
+   "seconds": 18.2
+  },
+  {
+   "id": 10,
+   "name": "Human agreement",
+   "layer": "Whole system",
+   "how": "show 3–5 people a clip + two explanations (data\\evals\\human_survey.json); record picks in data/evals/human_responses.csv (rater,clip,pick)",
+   "result": "no responses yet",
+   "bar": "real one picked > 50%",
+   "status": "SKIP",
+   "detail": {},
+   "seconds": 0.0
+  },
+  {
+   "id": 11,
+   "name": "Football video (real footage)",
+   "layer": "Perception",
+   "how": "7 openly licensed clips (data/raw/football/SOURCES.json), 9 audited frames",
+   "result": "[v2 (players coco, ball coco, pitch False; tiled ball + Kalman, BoT-SORT re-ID 30 fps)] players 73% recall (95/131), 12% false on-pitch; ball 60% of 5 visible; track coverage 76% (≥2 s); team purity 89%; homography 0% of clips; 5 spurious passes on penalty clips (v1); failing: player_recall, on_pitch_fp, ball_recall, team_purity, homography_clips, track_coverage_2s",
+   "bar": "recall ≥ 90%, FP ≤ 5%, ball ≥ 70%, tracks ≥ 3 s, purity ≥ 90%, homography on all clips",
+   "status": "FAIL",
+   "detail": {
+    "stages": {
+     "player_recall": 0.7251908396946565,
+     "on_pitch_fp": 0.12037037037037036,
+     "ball_recall": 0.6,
+     "team_purity": 0.8874285714285716,
+     "homography_clips": 0.0,
+     "track_coverage_2s": 0.7621428571428572
+    },
+    "pass": {
+     "player_recall": false,
+     "on_pitch_fp": false,
+     "ball_recall": false,
+     "team_purity": false,
+     "homography_clips": false,
+     "track_coverage_2s": false
+    },
+    "per_clip": [
+     {
+      "clip": "fra_ger_open_play",
+      "frames_sampled": 120,
+      "source_fps": 30.0,
+      "stride": 3,
+      "duration_s": 11.9,
+      "model": "yolo11s.pt",
+      "imgsz": 1280,
+      "seconds": 355.8,
+      "players": {
+       "on_pitch_per_frame": 23.0,
+       "crowd_or_bench_per_frame": 6.9,
+       "median_height_px": 33.9
+      },
+      "ball": {
+       "frames_with_ball": 0.0,
+       "n_ball_tracks": 0,
+       "longest_ball_track_frames": 0
+      },
+      "tracking": {
+       "person_tracks": 98,
+       "id_births_per_s": 8.24,
+       "median_track_len_s": 1.5
+      },
+      "teams": {
+       "clusters": [
+        174,
+        49,
+        216
+       ],
+       "silhouette": 0.616,
+       "track_purity": 0.945
+      },
+      "scene": {
+       "cuts": 0,
+       "graphics_rows_share": 0.0,
+       "pitch_green_share": 0.217
+      },
+      "pitch": {
+       "mean_long_lines": 18.9,
+       "homography": "not available (no pitch keypoint model)"
+      },
+      "events": {
+       "generated": 0,
+       "passes": 0,
+       "turnovers": 0
+      }
+     },
+     {
+      "clip": "fra_ger_kroos_penalty",
+      "frames_sampled": 120,
+      "source_fps": 30.0,
+      "stride": 3,
+      "duration_s": 11.9,
+      "model": "yolo11s.pt",
+      "imgsz": 1280,
+      "seconds": 267.1,
+      "players": {
+       "on_pitch_per_frame": 13.9,
+       "crowd_or_bench_per_frame": 11.8,
+       "median_height_px": 86.1
+      },
+      "ball": {
+       "frames_with_ball": 0.975,
+       "n_ball_tracks": 7,
+       "longest_ball_track_frames": 106
+      },
+      "tracking": {
+       "person_tracks": 43,
+       "id_births_per_s": 3.61,
+       "median_track_len_s": 9.6
+      },
+      "teams": {
+       "clusters": [
+        88,
+        52,
+        56
+       ],
+       "silhouette": 0.583,
+       "track_purity": 0.912
+      },
+      "scene": {
+       "cuts": 0,
+       "graphics_rows_share": 0.0,
+       "pitch_green_share": 0.394
+      },
+      "pitch": {
+       "mean_long_lines": 25.5,
+       "homography": "not available (no pitch keypoint model)"
+      },
+      "events": {
+       "generated": 5,
+       "passes": 5,
+       "turnovers": 0
+      }
+     },
+     {
+      "clip": "keller_saves_henry_pk",
+      "frames_sampled": 90,
+      "source_fps": 30.0,
+      "stride": 3,
+      "duration_s": 8.9,
+      "model": "yolo11s.pt",
+      "imgsz": 1280,
+      "seconds": 175.4,
+      "players": {
+       "on_pitch_per_frame": 10.5,
+       "crowd_or_bench_per_frame": 0.2,
+       "median_height_px": 65.3
+      },
+      "ball": {
+       "frames_with_ball": 0.022,
+       "n_ball_tracks": 1,
+       "longest_ball_track_frames": 2
+      },
+      "tracking": {
+       "person_tracks": 72,
+       "id_births_per_s": 8.09,
+       "median_track_len_s": 0.8
+      },
+      "teams": {
+       "clusters": [
+        84,
+        225,
+        159
+       ],
+       "silhouette": 0.591,
+       "track_purity": 0.867
+      },
+      "scene": {
+       "cuts": 0,
+       "graphics_rows_share": 0.0,
+       "pitch_green_share": 0.737
+      },
+      "pitch": {
+       "mean_long_lines": 92.6,
+       "homography": "not available (no pitch keypoint model)"
+      },
+      "events": {
+       "generated": 0,
+       "passes": 0,
+       "turnovers": 0
+      }
+     },
+     {
+      "clip": "valencia_wc2022_goal",
+      "frames_sampled": 120,
+      "source_fps": 25.0,
+      "stride": 2,
+      "duration_s": 9.5,
+      "model": "yolo11s.pt",
+      "imgsz": 1280,
+      "seconds": 209.4,
+      "players": {
+       "on_pitch_per_frame": 9.7,
+       "crowd_or_bench_per_frame": 0.0,
+       "median_height_px": 42.1
+      },
+      "ball": {
+       "frames_with_ball": 0.0,
+       "n_ball_tracks": 0,
+       "longest_ball_track_frames": 0
+      },
+      "tracking": {
+       "person_tracks": 20,
+       "id_births_per_s": 2.1,
+       "median_track_len_s": 3.04
+      },
+      "teams": {
+       "clusters": [
+        27,
+        23,
+        65
+       ],
+       "silhouette": 0.621,
+       "track_purity": 0.878
+      },
+      "scene": {
+       "cuts": 0,
+       "graphics_rows_share": 0.829,
+       "pitch_green_share": 0.954
+      },
+      "pitch": {
+       "mean_long_lines": 33.0,
+       "homography": "not available (no pitch keypoint model)"
+      },
+      "events": {
+       "generated": 0,
+       "passes": 0,
+       "turnovers": 0
+      }
+     },
+     {
+      "clip": "latvia_gibraltar",
+      "frames_sampled": 43,
+      "source_fps": 120.0,
+      "stride": 12,
+      "duration_s": 4.2,
+      "model": "yolo11s.pt",
+      "imgsz": 1280,
+      "seconds": 122.4,
+      "players": {
+       "on_pitch_per_frame": 1.7,
+       "crowd_or_bench_per_frame": 1.1,
+       "median_height_px": 49.4
+      },
+      "ball": {
+       "frames_with_ball": 0.0,
+       "n_ball_tracks": 0,
+       "longest_ball_track_frames": 0
+      },
+      "tracking": {
+       "person_tracks": 46,
+       "id_births_per_s": 10.95,
+       "median_track_len_s": 0.2
+      },
+      "teams": {
+       "clusters": [
+        29,
+        35,
+        10
+       ],
+       "silhouette": 0.67,
+       "track_purity": 0.801
+      },
+      "scene": {
+       "cuts": 0,
+       "graphics_rows_share": 0.0,
+       "pitch_green_share": 0.404
+      },
+      "pitch": {
+       "mean_long_lines": 14.7,
+       "homography": "not available (no pitch keypoint model)"
+      },
+      "events": {
+       "generated": 0,
+       "passes": 0,
+       "turnovers": 0
+      }
+     },
+     {
+      "clip": "everton_oxford_highlights",
+      "frames_sampled": 120,
+      "source_fps": 50.0,
+      "stride": 5,
+      "duration_s": 11.9,
+      "model": "yolo11s.pt",
+      "imgsz": 1280,
+      "seconds": 152.2,
+      "players": {
+       "on_pitch_per_frame": 12.8,
+       "crowd_or_bench_per_frame": 1.4,
+       "median_height_px": 45.8
+      },
+      "ball": {
+       "frames_with_ball": 0.05,
+       "n_ball_tracks": 2,
+       "longest_ball_track_frames": 3
+      },
+      "tracking": {
+       "person_tracks": 135,
+       "id_births_per_s": 11.34,
+       "median_track_len_s": 0.9
+      },
+      "teams": {
+       "clusters": [
+        307,
+        59,
+        462
+       ],
+       "silhouette": 0.554,
+       "track_purity": 0.909
+      },
+      "scene": {
+       "cuts": 0,
+       "graphics_rows_share": 0.0,
+       "pitch_green_share": 0.452
+      },
+      "pitch": {
+       "mean_long_lines": 163.2,
+       "homography": "not available (no pitch keypoint model)"
+      },
+      "events": {
+       "generated": 0,
+       "passes": 0,
+       "turnovers": 0
+      }
+     },
+     {
+      "clip": "amateur_shot_topdown",
+      "frames_sampled": 120,
+      "source_fps": 29.97002997002997,
+      "stride": 3,
+      "duration_s": 11.9,
+      "model": "yolo11s.pt",
+      "imgsz": 1280,
+      "seconds": 179.1,
+      "players": {
+       "on_pitch_per_frame": 5.9,
+       "crowd_or_bench_per_frame": 0.0,
+       "median_height_px": 17.0
+      },
+      "ball": {
+       "frames_with_ball": 0.0,
+       "n_ball_tracks": 0,
+       "longest_ball_track_frames": 0
+      },
+      "tracking": {
+       "person_tracks": 36,
+       "id_births_per_s": 3.02,
+       "median_track_len_s": 1.0
+      },
+      "teams": {
+       "clusters": [
+        80,
+        136,
+        21
+       ],
+       "silhouette": 0.498,
+       "track_purity": 0.9
+      },
+      "scene": {
+       "cuts": 0,
+       "graphics_rows_share": 0.0,
+       "pitch_green_share": 0.868
+      },
+      "pitch": {
+       "mean_long_lines": 0.0,
+       "homography": "not available (no pitch keypoint model)"
+      },
+      "events": {
+       "generated": 0,
+       "passes": 0,
+       "turnovers": 0
+      }
+     }
+    ]
+   },
+   "seconds": 0.0
+  }
+ ]
+}
