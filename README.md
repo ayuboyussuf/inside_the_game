@@ -2,6 +2,8 @@
 
 **Inside the Game: Developer Hackathon (Microsoft × Premier League)** entry.
 
+**Demo (1:48):** [`docs/demo/hunt_autopsy_demo.mp4`](docs/demo/hunt_autopsy_demo.mp4) · **Submission pitch:** [`docs/SUBMISSION.md`](docs/SUBMISSION.md)
+
 Most sports AI answers a question you ask it. Hunt Autopsy works the other way round. It starts from a **known outcome** (caught or escaped, goal or saved) and works **backwards** to the moments and movements that produced it. For example: *"Saved. The biggest factor: keeper reaction time of 0.27 s. When it is at or under 0.44 s, the result was saved in 652 of 737 similar shots."*
 
 The same explainer reads cheetah chases, simulated chases and synthetic football. All three are reduced to **one event schema** first, so the method can be validated on chases with *planted* causes and then applied to the pitch.

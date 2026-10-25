@@ -25,3 +25,4 @@ runs/
 .claude/
 weights/
 *.egg-info/
+docs/demo/raw/
