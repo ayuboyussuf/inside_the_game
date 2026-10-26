@@ -30,3 +30,4 @@ video/node_modules/
 video/out/
 video/public/footage.mp4
 docs/demo/raw_footage/
+.venv-tts/

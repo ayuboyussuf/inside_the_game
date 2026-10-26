@@ -138,21 +138,21 @@ export const Recap: React.FC = () => (
   </AbsoluteFill>
 );
 
-/* 8 ── explain: the shot autopsy */
+/* 8 ── explain: the shot autopsy (footage slowed to 0.78x so 13 s of capture covers the narration) */
 export const Autopsy: React.FC = () => (
   <AbsoluteFill>
     <Backdrop dots={20} />
-    <Footage startAt={MARK.autopsy} keys={[
-      { f: 0, x: 960, y: 540, s: 1 }, { f: 40, x: 895, y: 450, s: 1.3 }, { f: 150, x: 895, y: 450, s: 1.3 },
-      { f: 200, x: 1540, y: 330, s: 1.85 }, { f: 280, x: 1540, y: 330, s: 1.85 }, { f: 320, x: 1540, y: 560, s: 2.0 }, { f: 390, x: 1540, y: 560, s: 2.0 }]}>
-      <Mark x={994} y={662} w={112} h={116} from={70} to={190} />
-      <Mark x={1346} y={404} w={380} h={44} from={295} to={390} color={C.teal} />
-      <Mark x={1346} y={580} w={380} h={40} from={330} to={390} color={C.teal} />
+    <Footage startAt={MARK.autopsy} rate={0.78} keys={[
+      { f: 0, x: 960, y: 540, s: 1 }, { f: 50, x: 895, y: 450, s: 1.3 }, { f: 190, x: 895, y: 450, s: 1.3 },
+      { f: 250, x: 1540, y: 330, s: 1.85 }, { f: 350, x: 1540, y: 330, s: 1.85 }, { f: 400, x: 1540, y: 560, s: 2.0 }, { f: 480, x: 1540, y: 560, s: 2.0 }]}>
+      <Mark x={994} y={662} w={112} h={116} from={88} to={238} />
+      <Mark x={1346} y={404} w={380} h={44} from={260} to={480} color={C.teal} />
+      <Mark x={1346} y={580} w={380} h={40} from={400} to={480} color={C.teal} />
     </Footage>
-    <Chapter n="03" title="EXPLAIN" sub="why was this shot saved?" from={10} to={200} />
-    <Callout x={130} y={830} w={1050} from={70} to={190} accent={C.amber} text="The <b>decisive moment</b>: the save chance jumps right as the ball is struck" />
-    <Callout x={130} y={830} w={1050} from={205} to={300} text="Top factor: <b>keeper reaction 0.21 s</b>. Saved in 656 of 721 similar shots, plus a counterfactual" />
-    <Callout x={130} y={830} w={1050} from={310} to={390} accent={C.teal} text="Shots carry a planted cause, so we can check the explanation: it <b>matches</b>" />
+    <Chapter n="03" title="EXPLAIN" sub="why was this shot saved?" from={10} to={250} />
+    <Callout x={130} y={830} w={1050} from={88} to={238} accent={C.amber} text="The <b>decisive moment</b>: the save chance jumps right as the ball is struck" />
+    <Callout x={130} y={830} w={1050} from={255} to={380} text="Top factor: <b>keeper reaction 0.21 s</b>. Saved in 656 of 721 similar shots, plus a counterfactual" />
+    <Callout x={130} y={830} w={1050} from={390} to={480} accent={C.teal} text="Shots carry a planted cause, so we can check the explanation: it <b>matches</b>" />
   </AbsoluteFill>
 );
 

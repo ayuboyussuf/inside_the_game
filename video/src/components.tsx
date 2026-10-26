@@ -97,7 +97,7 @@ export const Callout: React.FC<{ x: number; y: number; from: number; to: number;
 
 /* ------------------------------------------------------------ camera over real footage */
 export type Key = { f: number; x: number; y: number; s: number };
-export const Footage: React.FC<{ startAt: number; keys: Key[]; children?: React.ReactNode }> = ({ startAt, keys, children }) => {
+export const Footage: React.FC<{ startAt: number; keys: Key[]; rate?: number; children?: React.ReactNode }> = ({ startAt, keys, rate = 1, children }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const fs = keys.map((k) => k.f);
@@ -112,7 +112,7 @@ export const Footage: React.FC<{ startAt: number; keys: Key[]; children?: React.
         border: `1px solid ${C.line}`, boxShadow: `0 40px 120px rgba(0,0,0,.7), 0 0 0 1px ${C.teal}22`, scale: `${frameIn}`, background: C.bg }}>
         <div style={{ position: "absolute", left: 0, top: 0, width: 1920, height: 1080, transformOrigin: "0 0",
           scale: `${0.86 * s}`, translate: `${0.86 * (960 - cx * s)}px ${0.86 * (540 - cy * s)}px` }}>
-          <Video src={staticFile("footage.mp4")} trimBefore={Math.round(startAt * fps)} muted style={{ width: 1920, height: 1080 }} />
+          <Video src={staticFile("footage.mp4")} trimBefore={Math.round(startAt * fps)} playbackRate={rate} muted style={{ width: 1920, height: 1080 }} />
           {children}
         </div>
       </div>

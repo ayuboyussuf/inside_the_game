@@ -1,0 +1,17 @@
+{
+ "voice": "bm_george",
+ "speed": 1.12,
+ "seconds": {
+  "cold": 4.65,
+  "problem": 3.92,
+  "reveal": 6.28,
+  "live": 16.98,
+  "fans": 11.1,
+  "fact": 4.6,
+  "recap": 3.85,
+  "autopsy": 14.25,
+  "hood": 14.4,
+  "proof": 10.9,
+  "close": 3.5
+ }
+}

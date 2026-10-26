@@ -2,7 +2,7 @@
 
 **Inside the Game: Developer Hackathon (Microsoft × Premier League)** entry.
 
-**Demo film (1:44):** [`docs/demo/hunt_autopsy_film.mp4`](docs/demo/hunt_autopsy_film.mp4) (made with Remotion, source in `video/`) · **Submission pitch:** [`docs/SUBMISSION.md`](docs/SUBMISSION.md)
+**Demo film (1:58, narrated):** [`docs/demo/hunt_autopsy_film.mp4`](docs/demo/hunt_autopsy_film.mp4) (made with Remotion, source in `video/`) · **Submission pitch:** [`docs/SUBMISSION.md`](docs/SUBMISSION.md)
 
 Most sports AI answers a question you ask it. Hunt Autopsy works the other way round. It starts from a **known outcome** (caught or escaped, goal or saved) and works **backwards** to the moments and movements that produced it. For example: *"Saved. The biggest factor: keeper reaction time of 0.27 s. When it is at or under 0.44 s, the result was saved in 652 of 737 similar shots."*
 
