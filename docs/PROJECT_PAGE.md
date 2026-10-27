@@ -12,6 +12,8 @@ explainable AI · football analytics · multi-agent system · real-time sports �
 
 ## Description
 
+🎬 **Demo video (1:58):** https://youtu.be/g-nyUr_ukYE · 💻 **Code:** https://github.com/ayuboyussuf/inside_the_game
+
 ### The problem
 A scoreline tells you *what* happened. Fans, analysts and broadcasters want to know *why*. Why did that goal swing the game? Why couldn't the keeper reach the shot? Was the team in control, or was it chaos? Today that "why" depends on a pundit's opinion. Stats feeds list numbers without context, and the same graphic goes to a data-hungry analyst and a casual fan watching in a different language.
 
